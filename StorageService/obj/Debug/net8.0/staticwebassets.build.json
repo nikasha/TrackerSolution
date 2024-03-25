@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Brg1RPVr9OMi7RH0pJ5BSWfWjpbhj80hGaBYdcDPfsw=",
+  "Source": "StorageService",
+  "BasePath": "_content/StorageService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

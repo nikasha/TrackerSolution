@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+    - "4369:4369"
+    - "5671:5671"
+    - "5672:5672"
+    - "25672:25672"
+    - "15671:15671"
+    - "15672:15672"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+    restart: on-failure
+
+  storage-service:
+    build:
+      context: .
+      dockerfile: StorageService/Dockerfile
+    environment:
+      - HOSTNAMERABBIT=rabbitmq
+    depends_on:
+      - rabbitmq
+    links: 
+        - rabbitmq
+    restart: always
+
+  pixel-service:
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: PixelService/Dockerfile
+    depends_on:
+      - rabbitmq
+    links: 
+      - rabbitmq
+    restart: on-failure
+    ports:
+      - "8080:80"   # HTTP
