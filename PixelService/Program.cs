@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IMessageSender, MessageSender>();
+builder.Services.AddSingleton<IRabbitMqClient, RabbitMqClient>();
+builder.Services.AddSingleton<IRabbitConnectionFactory, RabbitConnectionFactory>();
 
 var app = builder.Build();
 

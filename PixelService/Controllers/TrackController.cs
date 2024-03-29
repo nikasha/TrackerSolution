@@ -8,17 +8,18 @@ namespace PixelService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TrackController(ILogger<TrackController> logger, IMessageSender messageSender) : ControllerBase
+    public class TrackController(ILogger<TrackController> logger, IRabbitMqClient rabbitMqClient) : ControllerBase
     {
         private readonly ILogger<TrackController> _logger = logger;
-        private readonly IMessageSender _messageSender = messageSender;
+        private readonly IRabbitMqClient _rabbitMqClient = rabbitMqClient;
 
         [HttpGet]
         public IActionResult Get()
         {
             var referer = Request.Headers.Referer.ToString();
             var userAgent = Request.Headers.UserAgent.ToString();            
-            var ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString();
+            // We assume empty IP if RemoteIpAddress is null
+            var ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
             _logger.LogInformation("Request received");
             var messageData = new InfoVisitMessage
@@ -30,11 +31,10 @@ namespace PixelService.Controllers
 
             string messageJson = JsonSerializer.Serialize(messageData);
 
-            _messageSender.SendMessage(messageJson);
+            _rabbitMqClient.SendMessage(messageJson);
             _logger.LogInformation("Message sent to Storage service");
 
-            // Create and return the image
-            using var image = new Image<Rgba32>(1, 1);
+            var image = new Image<Rgba32>(1, 1);
 
             // Transparent color
             image[0, 0] = new Rgba32(255, 255, 255, 0);

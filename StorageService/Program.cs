@@ -13,9 +13,9 @@ namespace StorageService
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IMessageConsumer, MessageConsumer>();
-                    services.AddSingleton<IMessageSender, MessageSender>();
-                    services.AddHostedService<Worker>(); // Worker will log the info in the file
+                    services.AddSingleton<IRabbitMqClient, RabbitMqClient>();
+                    services.AddSingleton<IRabbitConnectionFactory, RabbitConnectionFactory>();
+                    services.AddHostedService<FileWriter>(); // FileWriter will log the visit info into the file
                 });
     }
 }

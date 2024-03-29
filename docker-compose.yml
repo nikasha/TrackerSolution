@@ -9,13 +9,9 @@ services:
     - "25672:25672"
     - "15671:15671"
     - "15672:15672"
-    healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:15672"]
-        interval: 30s
-        timeout: 10s
-        retries: 5
-    restart: on-failure
-
+    restart: always
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
   storage-service:
     build:
       context: .
@@ -24,9 +20,9 @@ services:
       - HOSTNAMERABBIT=rabbitmq
     depends_on:
       - rabbitmq
-    links: 
-        - rabbitmq
     restart: always
+    volumes:
+      - storage_service_data:/tmp
 
   pixel-service:
     environment:
@@ -39,6 +35,9 @@ services:
       - rabbitmq
     links: 
       - rabbitmq
-    restart: on-failure
+    restart: always
     ports:
       - "8080:80"   # HTTP
+volumes:
+  rabbitmq_data:
+  storage_service_data:  
