@@ -10,7 +10,7 @@ The Pixel Service's TrackController is a critical component of a web tracking an
 - **Logging:** Provides detailed logging at various stages of processing for troubleshooting and audit purposes.
 
 ## Usage
-Deployed as part of an ASP.NET Core application, the TrackController is accessible via an HTTP GET request to the route configured in the `[Route("[controller]")]` attribute. Upon receiving a request, it performs the following actions:
+Deployed as part of an ASP.NET Core application, the TrackController is accessible via an HTTP GET request. Upon receiving a request, it performs the following actions:
 1. Extracts the `Referer`, `UserAgent`, and IP address from the incoming request.
 2. Serializes this information into JSON format.
 3. Sends the serialized data to a RabbitMQ queue for storage and analysis.
@@ -22,7 +22,10 @@ Deployed as part of an ASP.NET Core application, the TrackController is accessib
 - **SixLabors.ImageSharp:** Utilized for generating the transparent GIF image returned in the response.
 
 ## Configuration
-Ensure your application's configuration includes the necessary settings for RabbitMQ connection and queue names. The TrackController relies on these settings, provided via dependency injection, to communicate with RabbitMQ.
+Ensure your application's configuration includes the necessary settings for RabbitMQ connection and queue names. The TrackController relies on these settings, provided via dependency injection, to communicate with RabbitMQ. Verify the endpoint in swagger:
+
+http://localhost:8080/swagger/index.html
+
 
 ## Integration Tests
 
@@ -38,7 +41,7 @@ If you haven't already, you can start a RabbitMQ instance using Docker with the 
 docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ```
 
-This command starts a RabbitMQ container with management plugins enabled, making it accessible on the default ports: `5672` for RabbitMQ and `15672` for the management UI.
+This command starts a RabbitMQ container with management plugins enabled, making it accessible on the default ports: `5672` for RabbitMQ and for the management UI.
 
 ### Configuring the Test Environment
 
@@ -47,10 +50,6 @@ Ensure your test environment or configurations are set to connect to this Rabbit
 ### Health Check
 
 Integration tests may require RabbitMQ to be fully operational before they run. Please ensure the RabbitMQ service is healthy and accepting connections. You can check the RabbitMQ management UI at `http://localhost:15672` (default credentials are `guest` for both username and password) to verify if the service is up and running.
-
----
-
-This setup is simplified for the exercise's context. In a real-world scenario, you might want to configure a dedicated RabbitMQ instance or environment specifically tailored for testing purposes, ensuring that your tests run in an isolated and controlled environment.
 
 ## Conclusion
 The TrackController offers a lightweight and efficient method for tracking web interactions, crucial for analytics and user behavior analysis. Its seamless integration with RabbitMQ and the storage service ensures that visit data is captured and processed in real-time, enabling detailed analytics and insights.
