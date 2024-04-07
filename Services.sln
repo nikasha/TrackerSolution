@@ -11,6 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqClientLib", "Rabbit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{AA383F31-1389-4C91-94B1-32C56E80E3DF}"
 	ProjectSection(SolutionItems) = preProject
+		.env = .env
 		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
@@ -21,6 +22,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPixelService", "TestPixelService\TestPixelService.csproj", "{06581E9E-9359-4851-A57D-88691A0B59E7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRabbitMqClientLib", "TestRabbitMqClient\TestRabbitMqClientLib.csproj", "{D0D19A4B-82E8-4656-B627-AC49C6778EA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D4005BED-5019-4D14-AA31-1942DAD6122D}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\ArchitectureDesign.png = Documentation\ArchitectureDesign.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +61,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4005BED-5019-4D14-AA31-1942DAD6122D} = {AA383F31-1389-4C91-94B1-32C56E80E3DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {885C7E98-2A21-4226-8B56-0D62C0238399}

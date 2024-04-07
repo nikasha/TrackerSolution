@@ -1,12 +1,8 @@
-﻿
-using Castle.Core.Configuration;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PixelService.Controllers;
 using RabbitMqClientLib;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using System.Text.Json;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
@@ -51,9 +47,9 @@ namespace TestPixelService
         [TearDown]
         public void TearDown()
         {
-            _client.Dispose();
-            _factory.Dispose();
-            _rabbitMqClient.Dispose();
+            _client?.Dispose();
+            _factory?.Dispose();
+            _rabbitMqClient?.Dispose();
         }
 
         [Test]

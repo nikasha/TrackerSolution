@@ -12,14 +12,26 @@ services:
     restart: always
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "${SQL_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
   storage-service:
     build:
       context: .
       dockerfile: StorageService/Dockerfile
     environment:
       - HOSTNAMERABBIT=rabbitmq
+    env_file:
+      - ./.env
     depends_on:
       - rabbitmq
+      - sqlserver
     restart: always
     volumes:
       - storage_service_data:/tmp
@@ -38,6 +50,8 @@ services:
     restart: always
     ports:
       - "8080:80"   # HTTP
+
 volumes:
   rabbitmq_data:
-  storage_service_data:  
+  storage_service_data:
+  sqlserver_data:

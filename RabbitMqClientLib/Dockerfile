@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /RabbitMqClientLib
 
+RUN rabbitmq-plugins enable --offline rabbitmq_shovel rabbitmq_shovel_management
+
 COPY ["RabbitMqClientLib.csproj", "./"]
 RUN dotnet restore "RabbitMqClientLib.csproj"
 

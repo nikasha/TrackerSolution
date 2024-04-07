@@ -6,3 +6,4 @@
 /.vscode
 **/obj/
 **/bin/
+/StorageService/.config/dotnet-tools.json

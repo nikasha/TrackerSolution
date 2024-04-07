@@ -5,7 +5,6 @@ using System.Net;
 using Microsoft.Extensions.Logging;
 using RabbitMqClientLib;
 using PixelService.Controllers;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace TestPixelService
 {

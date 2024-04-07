@@ -41,7 +41,7 @@ If you haven't already, you can start a RabbitMQ instance using Docker with the 
 docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ```
 
-This command starts a RabbitMQ container with management plugins enabled, making it accessible on the default ports: `5672` for RabbitMQ and for the management UI.
+This command starts a RabbitMQ container with management plugins enabled, making it accessible on the default ports: `5672` for RabbitMQ and `15672` for the management UI.
 
 ### Configuring the Test Environment
 

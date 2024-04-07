@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
+RUN dotnet tool install --global dotnet-ef
+
 COPY RabbitMqClientLib/*.csproj ./RabbitMqClientLib/
 RUN dotnet restore RabbitMqClientLib/RabbitMqClientLib.csproj
 
